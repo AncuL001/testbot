@@ -12,7 +12,7 @@ class testbot(commands.Bot):
             self.load_extension(package)
 
     async def on_ready(self):
-        channel = self.get_channel(773414570551148548)
+        channel = self.get_channel(config.test_channel())
         await channel.send(f"logged in on {date.today():%B} {date.today().day} {date.today().year}")
 
     async def on_command_error(self, ctx, error):

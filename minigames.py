@@ -14,10 +14,10 @@ class Minigames(commands.Cog):
             end = int(end)
             assert (start <= end), "The first argument should be smaller than the second one!"
             ANSWER = random.randint(start, end)
+        except ValueError:
+            await ctx.send("Both the first and second arguments should be integers!")
+            return
         except Exception as e:
-            if e.__class__ == ValueError:
-                await ctx.send("Both the first and second arguments should be integers!")
-                return
             await ctx.send(e)
             return
         
@@ -35,12 +35,10 @@ class Minigames(commands.Cog):
                     num = int(msg.content)
                     assert(start <= num and num <= end), f"You're supppsed to guess between {start} and {end}"
                     return num
+                except ValueError:
+                    await ctx.send("Make sure you're guessing numbers!")
                 except Exception as e:
-                    if e.__class__ == ValueError:
-                        await ctx.send("Make sure you're guessing numbers!")
-                    else:
-                        await ctx.send(e)
-                    await ctx.send("I'll pretend that didn't happen. Now guess correctly, won't you?")
+                    await ctx.send(e)
 
         num = await extract_num()
         while(num != ANSWER):
